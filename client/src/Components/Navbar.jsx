@@ -1,26 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './navbar.css';
 import img1 from '../assets/Capture.PNG';
+
 const Navbar = () => {
+
+  const [user,setUser]=useState(false);
+  const [login,setLogin]=useState(true);
+
+  const logout=()=>{
+    setLogin(false);
+  }
   return (
     <div className="navbar-container">
       {/* Top Bar */}
       <div className="navbar-top">
         <div className="navbar-left">
-          <i className="fas fa-user-plus"></i>
-          <a href="#register">Register</a>
+          
+          {!login &&  <div>
+            <i className="fas fa-user-plus"></i>
+            <a href="#register">Register</a>
+            </div>}
           <button className="font-btn">A-</button>
           <button className="font-btn">A</button>
           <button className="font-btn">A+</button>
         </div>
 
         <div className="navbar-right">
-          <i className="fas fa-lock"></i>
-          <a href="#user-login">User Login</a>
-          | &nbsp;
-          <i className="fas fa-user-cog"></i>
-          <a href="#admin-login">Admin Login</a>
-          | &nbsp;
+          {!login ?<div>
+            <i className="fas fa-lock"></i>
+            <a href="#user-login">User Login</a>
+            | &nbsp;
+            <i className="fas fa-user-cog"></i>
+            <a href="#admin-login">Admin Login</a>
+            | &nbsp;
+          </div>:<div>
+            <i className="fas fa-user-cog"></i>
+            <a href="#admin-login" onClick={logout}>Logout</a>
+            | &nbsp;
+          </div>}
+          
           <i className="fas fa-phone"></i>
           <a href="#contact">Contact</a>
         </div>

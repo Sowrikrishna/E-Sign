@@ -13,7 +13,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 
 const datadisabled = [
-  { id: 1, name: "monitor" },
+  { id: 1, name: 'sowri' },
   { id: 2, name: "cpu" },
   { id: 3, name: "printer" },
   { id: 4, name: "speaker" },

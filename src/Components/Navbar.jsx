@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './navbar.css';
 import img1 from '../assets/Capture.PNG';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
   const [user,setUser]=useState(false);
-  const [login,setLogin]=useState(true);
+  const [login,setLogin]=useState(false);
+  const navigate=useNavigate();
 
   const logout=()=>{
     setLogin(false);
@@ -28,14 +30,14 @@ const Navbar = () => {
         <div className="navbar-right">
           {!login ?<div>
             <i className="fas fa-lock"></i>
-            <a href="#user-login">User Login</a>
+            <a onClick={()=>navigate('/')}>User Login</a>
             | &nbsp;
             <i className="fas fa-user-cog"></i>
-            <a href="#admin-login">Admin Login</a>
+            <a onClick={()=>navigate('/admin_login')}>Admin Login</a>
             | &nbsp;
           </div>:<div>
             <i className="fas fa-user-cog"></i>
-            <a href="#admin-login" onClick={logout}>Logout</a>
+            <a href="admin-login" onClick={logout}>Logout</a>
             | &nbsp;
           </div>}
           

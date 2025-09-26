@@ -1,9 +1,8 @@
 import React from 'react'
 import Search from '../Components/Search'
 import AdminLogin from '../Components/AdminLogin'
-
+import Home from '../Components/Home'
 import {Routes,Route} from 'react-router-dom'
-import Adminpage from '../Components/adminpage'
 const AllRoutes = () => {
   const validate = localStorage.getItem("validated")
   console.log("shu", validate);
@@ -13,9 +12,8 @@ const AllRoutes = () => {
       
       <Routes>
         
-        <Route path='/' element={<Search></Search>}></Route>
+        <Route path='/' element={<Home></Home>}></Route>
         <Route path='/admin_login' element={<AdminLogin></AdminLogin>}></Route>
-        {validate !== undefined && <Route path='/admin_page' element={<Adminpage/>}></Route>}
 
       </Routes>
     </div>

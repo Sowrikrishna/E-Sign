@@ -11,7 +11,7 @@ import {
   InputAdornment
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import sampleImage from '../assets/sample-birch-400x300.jpg';
+import sampleImage from '../assets/Capture.png';
 
 const datadisabled = [
   { id: 1, name: 'sowri' },
@@ -80,19 +80,20 @@ const Search= () => {
 
       {/* Video Card */}
       {selectedDevice && (
-        <Card sx={{ width: '100%' }}>
+        <Card sx={{ width: '100%', padding: "10px"}}>
           {/* Image */}
           <CardMedia
           component="img"
-          height="300"
+          height="200"
           src={sampleImage}
           alt="Device Image"
+          sx={{marginBottom:"10px", height:"300px"}}
           />
 
           {/* Video */}
           <CardMedia
             component="iframe"
-            height="315"
+            height="350"
             src="https://www.youtube.com/embed/dQw4w9WgXcQ"
             title="Device Video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { FaUser , FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
+
 const AdminLogin = ({ onClose }) => {
   const [captcha, setCaptcha] = useState("HJTYIU");
   const [captchaInput, setCaptchaInput] = useState("");
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [username, setusername] = useState('');
   const [password, setpassword] = useState('');
@@ -77,17 +78,17 @@ const AdminLogin = ({ onClose }) => {
         </button>
 
         {/* Icon */}
-        <div className="icon-container text-center mb-4 relative">
+        <div className="icon-container text-center mb-2 relative">
           <FaUser  className="main-icon text-5xl text-[#003366] mx-auto" />
           <div className="gear-icon w-5 h-5 bg-[#003366] rounded-full inline-block -ml-4 text-white text-sm leading-5 text-center absolute -bottom-2 right-1/2 transform translate-x-1/2">⚙️</div>
         </div>
 
         {/* Heading */}
-        <h2 className="title text-center mb-5 text-lg font-semibold text-gray-800">Admin Login</h2>
+        <h2 className="title text-center mb-3 text-lg font-semibold text-gray-800">Admin Login</h2>
 
         {/* Username */}
         <div className="input-group flex mb-4">
-          <div className="input-icon bg-[#003366] p-2.5 flex items-center text-white">
+          <div className="input-icon bg-[#003366] p-3 flex items-center text-white">
             <FaUser  className="text-sm" />
           </div>
           <input 
@@ -96,13 +97,13 @@ const AdminLogin = ({ onClose }) => {
             value={username}
             onChange={(e) => { setusername(e.target.value) }} 
             autoComplete="off"  // Prevents browser autofill
-            className="flex-1 p-2.5 border border-gray-300 outline-none focus:border-blue-500 focus:outline-none"
+            className="flex-1 p-2.5 border border-gray-300 outline-none focus:border-blue-500 focus:outline-none -ml-2"
           />
         </div>
 
         {/* Password */}
         <div className="input-group flex mb-4">
-          <div className="input-icon bg-[#003366] p-2.5 flex items-center text-white">
+          <div className="input-icon bg-[#003366] p-3 flex items-center text-white">
             <FaLock className="text-sm" />
           </div>
           <input 
@@ -115,35 +116,17 @@ const AdminLogin = ({ onClose }) => {
           />
         </div>
 
-        {/* Captcha */}
-        <input
-          type="text"
-          placeholder="Enter Captcha"
-          value={captchaInput}
-          onChange={(e) => setCaptchaInput(e.target.value)}
-          autoComplete="off"  // Prevents any autofill
-          className="captcha-input w-full p-2.5 mb-2.5 border border-gray-300 outline-none focus:border-blue-500 focus:outline-none"
-        />
-
-        <div className="captcha-container flex items-center mb-4">
-          <span className="captcha-text font-bold text-lg text-gray-800">{captcha}</span>
-          <span 
-            className="captcha-refresh ml-2.5 cursor-pointer text-xl hover:text-gray-600"
-            onClick={refreshCaptcha}
-          >
-            🔄
-          </span>
-        </div>
+        
 
         {/* Forgot password */}
-        <a href="#" className="forgot-link text-blue-600 text-sm underline block mb-4 hover:text-blue-800">
+        <a className="forgot-link text-blue-600 text-sm underline block mb-4 hover:text-blue-800">
           Forgot Password
         </a>
 
         {/* Login button */}
         <button 
           type="button"
-          className="login-btn w-full bg-[#003366] text-white p-3 border-none cursor-pointer text-base hover:bg-[#002244] rounded-md"
+          className="login-btn w-full bg-[#003366] text-white p-3 border-none cursor-pointer text-base hover:bg-[#002244] rounded-full"
           onClick={handleSubmit}
         >
           Login

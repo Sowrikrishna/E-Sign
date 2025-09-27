@@ -84,19 +84,21 @@ const Search= () => {
           {/* Image */}
           <CardMedia
           component="img"
-          height="200"
           src={sampleImage}
           alt="Device Image"
-          sx={{marginBottom:"10px", height:"300px"}}
+          sx={{marginBottom:"10px", height:"500px",objectFit:"fill",'@media(max-width: 772px)':{height: 400},'@media (max-width:400px)': {height: 300,
+      }}}
           />
 
           {/* Video */}
           <CardMedia
             component="iframe"
-            height="350"
+            height="500"
             src="https://www.youtube.com/embed/dQw4w9WgXcQ"
             title="Device Video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            sx={{'@media(max-width: 772px)':{height: 400},'@media (max-width:400px)': {height: 300,
+      }}}
             allowFullScreen
           />
 

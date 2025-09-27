@@ -26,9 +26,9 @@ export const Banner = () => {
     }, [totalSlides]);
     return (
         <div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center mt-1">
                 {/* Slider container */}
-                <div className="w-full max-w-3xl overflow-hidden relative">
+                <div className="w-full max-w-7xl overflow-hidden relative">
                     <div
                         ref={sliderRef}
                         className="flex transition-transform duration-500 ease-in-out"

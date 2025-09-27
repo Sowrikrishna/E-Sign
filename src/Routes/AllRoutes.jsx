@@ -9,7 +9,7 @@ const AllRoutes = () => {
   
   return (
     <div>
-      
+      <AdminLogin/>
       <Routes>
         
         <Route path='/' element={<Home></Home>}></Route>

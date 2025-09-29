@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const AdminLogin = ({ onClose }) => {
   const [captcha, setCaptcha] = useState("HJTYIU");
   const [captchaInput, setCaptchaInput] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
   const [username, setusername] = useState('');
   const [password, setpassword] = useState('');
@@ -15,20 +15,8 @@ const AdminLogin = ({ onClose }) => {
   useEffect(() => {
     setusername('');
     setpassword('');
-    setCaptchaInput('');
-    // Optionally refresh captcha on open
-    // refreshCaptcha();
   }, []); // Empty dependency array: runs once on mount
 
-  const refreshCaptcha = () => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let newCaptcha = "";
-    for (let i = 0; i < 6; i++) {
-      newCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setCaptcha(newCaptcha);
-    setCaptchaInput(""); // Clear input on refresh
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,13 +27,6 @@ const AdminLogin = ({ onClose }) => {
       return;
     }
     
-    // Captcha validation
-    if (captchaInput.toUpperCase() !== captcha) {
-      alert("Captcha is incorrect");
-      setCaptchaInput(""); // Clear on error
-      refreshCaptcha(); // Refresh on error
-      return;
-    }
     
     if (username === "sowri" && password === "123") {
       localStorage.setItem("validated", "validated");
@@ -55,8 +36,6 @@ const AdminLogin = ({ onClose }) => {
       alert("Enter correct admin username and password");
       setusername("");
       setpassword("");
-      setCaptchaInput("");
-      refreshCaptcha(); // Refresh on failed login
     }
   };
 

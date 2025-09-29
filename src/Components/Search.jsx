@@ -86,7 +86,7 @@ const Search= () => {
           component="img"
           src={sampleImage}
           alt="Device Image"
-          sx={{marginBottom:"10px", height:"500px",objectFit:"fill",'@media(max-width: 772px)':{height: 400},'@media (max-width:400px)': {height: 300,
+          sx={{marginBottom:"10px", height:"500px",objectFit:"fill",'@media(max-width: 772px)':{height: 400},'@media (max-width:500px)': {height: 300,
       }}}
           />
 
@@ -97,7 +97,7 @@ const Search= () => {
             src="https://www.youtube.com/embed/dQw4w9WgXcQ"
             title="Device Video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            sx={{'@media(max-width: 772px)':{height: 400},'@media (max-width:400px)': {height: 300,
+            sx={{'@media(max-width: 772px)':{height: 400},'@media (max-width:500px)': {height: 300,
       }}}
             allowFullScreen
           />

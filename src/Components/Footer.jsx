@@ -18,7 +18,7 @@ const Footer = () => {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <i className="fas fa-copyright" style={{ marginRight: '6px' }}></i>
         <span>
-          2025 Bharathidasan University, Tiruchirappalli, Tamil Nadu, India.
+          2025 Bharathidasan University, Tiruchirappalli,<br></br> Tamil Nadu, India.
         </span>
       </div>
 
@@ -45,7 +45,7 @@ const Footer = () => {
           Disclaimer
         </a>
         <div style={{ marginTop: '5px' }}>
-          Website Maintained by: <strong>University Informatics Centre, BDU</strong>
+          Website Maintained by: <strong>CDAP, BDU</strong>
         </div>
       </div>
     </div>

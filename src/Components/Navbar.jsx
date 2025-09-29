@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import img1 from '../assets/Capture.PNG';
 import { useNavigate, Link } from 'react-router-dom';
 import '../App.css'
 const Navbar = () => {
@@ -27,9 +26,9 @@ const Navbar = () => {
               <a href="#register" className="no-underline text-white ml-1 mr-3.75 text-sm hover:underline hover:text-red-500">Register</a>
             </div>
           )}
-          <button className="font-btn bg-blue-600 text-white border-none px-2 py-1 ml-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1">A-</button>
-          <button className="font-btn bg-blue-600 text-white border-none px-2.5 py-1 ml-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1">A</button>
-          <button className="font-btn bg-blue-600 text-white border-none px-2 py-1 ml-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1">A+</button>
+          <button className="font-btn bg-blue-600 text-white border-none px-2 py-1 ml-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1 font-semibold">A-</button>
+          <button className="font-btn bg-blue-600 text-white border-none px-2.5 py-1 ml-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1 font-semibold">A</button>
+          <button className="font-btn bg-blue-600 text-white border-none px-2 py-1 ml-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1 font-semibold">A+</button>
         </div>
 
         <div className="navbar-right flex items-center mt-1.25 md:mt-0 flex-wrap">
@@ -69,13 +68,13 @@ const Navbar = () => {
       </div>
 
       {/* Center Section */}
-      <div className="navbar-centerr text-center mt-4">
-        <img src={img1} alt="University Logo" className="logo h-12 md:h-15 mb-2.5 mx-auto block" />
+      <div className="navbar-center text-center mt-4">
+        
+        <img src="BDU_logo.png" alt="University Logo" className="logo h-20 md:h-22 mb-2.5 mx-auto block" />
         <h1 className="text-xl font-bold">Bharathidasan University</h1>
         <h2 className="text-base mt-1">Center for Differently Abled Person</h2>
-        <p className="text-sm mt-0.5">Tiruchirappalli - 620 024, Tamil Nadu, India</p>
-        <p className="text-sm mt-0.5">(Accredited with A+ Grade by NAAC in the Third Cycle</p>
-        <p className="text-sm mt-0.5">& 36th Rank among the Indian Universities in NIRF–2024)</p>
+        <p className="text-xl font-bold mt-0.5 text-medium">Tiruchirappalli - 620 023, Tamil Nadu, India</p>
+        
       </div>
     </div>
   );

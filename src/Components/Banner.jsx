@@ -1,5 +1,6 @@
 import React from 'react'
 import {useState,useEffect,useRef} from 'react'
+
 export const Banner = () => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -7,11 +8,11 @@ export const Banner = () => {
     const totalSlides = 5;
 
     const images = [
-        "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/gallery/slide1.png",
-        "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/gallery/slide2.png",
-        "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/gallery/slide3.png",
-        "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/gallery/slide4.png",
-        "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/gallery/slide5.png",
+        "/assets/1.jpg",
+        "/assets/2.jpg",
+        "/assets/1.jpg",
+        "/assets/3.jpg",
+        "/assets/4.jpg",
     ];
 
     const goToSlide = (index) => {

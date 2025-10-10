@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { FaUser , FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../Context/AppContext";
 
 
 const AdminLogin = ({ onClose }) => {
-  const [captcha, setCaptcha] = useState("HJTYIU");
-  const [captchaInput, setCaptchaInput] = useState("");
+  const {isUser,setIsUser}=useAppContext();
   const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
   const [username, setusername] = useState('');
   const [password, setpassword] = useState('');
+
 
   // Clear fields on component mount (when modal opens)
   useEffect(() => {
@@ -20,6 +21,7 @@ const AdminLogin = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     
     // Combined validation for username and password
     if (!username || !password) {
@@ -29,9 +31,10 @@ const AdminLogin = ({ onClose }) => {
     
     
     if (username === "sowri" && password === "123") {
-      localStorage.setItem("validated", "validated");
       setIsOpen(false);
       navigate('/admin_page');
+      setIsUser(false);
+
     } else {
       alert("Enter correct admin username and password");
       setusername("");

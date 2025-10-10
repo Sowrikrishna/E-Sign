@@ -5,14 +5,14 @@ import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import AllRoutes from './Routes/AllRoutes';
 import './App.css'
+import { useAppContext } from './Context/AppContext';
 function App() {
-  
-
+  const {isUser,setIsUser}=useAppContext();
   return (
     <>
-      <Navbar />
+      {isUser ?  <Navbar/>: null}
       <AllRoutes/>
-      <Footer />
+      {isUser ? <Footer />: null}
     </>
   )
 }

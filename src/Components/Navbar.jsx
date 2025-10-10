@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../App.css'
 const Navbar = () => {
-  const [user, setUser] = useState(false);
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
   const navigate = useNavigate();
 
   const logout = () => {

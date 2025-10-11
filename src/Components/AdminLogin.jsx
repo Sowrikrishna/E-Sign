@@ -33,7 +33,9 @@ const AdminLogin = ({ onClose }) => {
     if (username === "sowri" && password === "123") {
       setIsOpen(false);
       navigate('/admin_page');
+      localStorage.setItem("Name",true);
       setIsUser(false);
+      
 
     } else {
       alert("Enter correct admin username and password");

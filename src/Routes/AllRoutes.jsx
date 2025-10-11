@@ -21,7 +21,7 @@ const AllRoutes = () => {
         {/*Admin Login */}
         
         <Route path='/admin_page' element={isUser? <PageNotFound/>: <AdminPage/>}>
-            <Route index element={<Addsign/>}></Route>
+            <Route index element={<AdminPage/>}></Route>
             <Route path='View_Sign' element={<Addsign/>}></Route>
         </Route>
         

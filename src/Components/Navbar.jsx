@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAppContext } from '../Context/AppContext';
 import '../App.css'
 const Navbar = () => {
+
+  const { fontSize, decreaseFontSize, resetFontSize, increaseFontSize } = useAppContext();
   const [login, setLogin] = useState(false);
   const navigate = useNavigate();
 
@@ -25,9 +28,30 @@ const Navbar = () => {
               <a href="#register" className="no-underline text-white ml-1 mr-3.75 text-sm hover:underline hover:text-red-500">Register</a>
             </div>
           )}
-          <button className="font-btn bg-blue-600 text-white border-none px-2 py-1 ml-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1 font-semibold">A-</button>
-          <button className="font-btn bg-blue-600 text-white border-none px-2.5 py-1 ml-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1 font-semibold">A</button>
-          <button className="font-btn bg-blue-600 text-white border-none px-2 py-1 ml-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1 font-semibold">A+</button>
+          <button 
+                onClick={decreaseFontSize}
+                className={`bg-blue-600 text-white border-none px-2 py-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1 font-semibold ${
+                    fontSize === 'sm' ? 'bg-blue-800' : ''
+                }`}
+            >
+                A-
+            </button>
+            <button 
+                onClick={resetFontSize}
+                className={`bg-blue-600 text-white border-none px-2.5 py-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1 font-semibold ${
+                    fontSize === 'base' ? 'bg-blue-800' : ''
+                }`}
+            >
+                A
+            </button>
+            <button 
+                onClick={increaseFontSize}
+                className={`bg-blue-600 text-white border-none px-2 py-1 text-xs cursor-pointer rounded hover:bg-blue-700 mx-1 font-semibold ${
+                    fontSize === 'lg' ? 'bg-blue-800' : ''
+                }`}
+            >
+                A+
+            </button>
         </div>
 
         <div className="navbar-right flex items-center mt-1.25 md:mt-0 flex-wrap">

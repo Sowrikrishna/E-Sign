@@ -18,6 +18,10 @@ const AddSign = () => {
   const [message, setMessage] = useState({ type: '', text: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // File size limits
+  const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB
+  const MAX_VIDEO_SIZE = 10 * 1024 * 1024; // 10MB
+
   // Handle text input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,36 +31,59 @@ const AddSign = () => {
     }));
   };
 
-  // Handle image file selection and preview
+  // Handle image file selection and preview with size validation
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > MAX_IMAGE_SIZE) {
+        setMessage({ type: 'error', text: 'Image size must be less than 1MB' });
+        e.target.value = ''; // Clear the file input
+        return;
+      }
       setImageFile(file);
       // Create preview URL
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
+      setMessage({ type: '', text: '' }); // Clear any previous errors
     }
   };
 
-  // Handle video file selection and preview
+  // Handle video file selection and preview with size validation
   const handleVideoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > MAX_VIDEO_SIZE) {
+        setMessage({ type: 'error', text: 'Video size must be less than 10MB' });
+        e.target.value = ''; // Clear the file input
+        return;
+      }
       setVideoFile(file);
       // Create preview URL
       const previewUrl = URL.createObjectURL(file);
       setVideoPreview(previewUrl);
+      setMessage({ type: '', text: '' }); // Clear any previous errors
     }
   };
 
   // Validate all fields are filled
   const validateForm = () => {
-    return (
-      formData.keyword.trim() !== '' &&
-      formData.description.trim() !== '' &&
-      imageFile &&
-      videoFile
-    );
+    if (!formData.keyword.trim() || !formData.description.trim() || !imageFile || !videoFile) {
+      setMessage({ type: 'error', text: 'Please fill in all fields' });
+      return false;
+    }
+    
+    // Check file sizes again before submission
+    if (imageFile.size > MAX_IMAGE_SIZE) {
+      setMessage({ type: 'error', text: 'Image size must be less than 1MB' });
+      return false;
+    }
+    
+    if (videoFile.size > MAX_VIDEO_SIZE) {
+      setMessage({ type: 'error', text: 'Video size must be less than 10MB' });
+      return false;
+    }
+    
+    return true;
   };
 
   // Handle form submission
@@ -65,7 +92,6 @@ const AddSign = () => {
     
     // Validate form
     if (!validateForm()) {
-      setMessage({ type: 'error', text: 'Please fill in all fields' });
       return;
     }
 
@@ -81,7 +107,7 @@ const AddSign = () => {
       submitData.append('video', videoFile);
 
       // Send data to backend
-      const response = await axios.post('/api/upload', submitData, {
+      const response = await axios.post('http://localhost:5000/api/signs', submitData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -97,15 +123,20 @@ const AddSign = () => {
       setImagePreview(null);
       setVideoPreview(null);
       
+      // Clear file inputs
+      document.getElementById('image').value = '';
+      document.getElementById('video').value = '';
+      
       // Clean up preview URLs
       if (imagePreview) URL.revokeObjectURL(imagePreview);
       if (videoPreview) URL.revokeObjectURL(videoPreview);
 
     } catch (error) {
       // Error handling
+      const errorMessage = error.response?.data?.message || 'Upload failed. Please try again.';
       setMessage({ 
         type: 'error', 
-        text: 'Upload failed. Please try again.' 
+        text: errorMessage
       });
       console.error('Upload error:', error);
     } finally {
@@ -153,7 +184,7 @@ const AddSign = () => {
             {/* Image Upload with Preview */}
             <div>
               <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">
-                Sign Image *
+                Sign Image * (Max 1MB)
               </label>
               <input
                 type="file"
@@ -178,7 +209,7 @@ const AddSign = () => {
             {/* Video Upload with Preview */}
             <div>
               <label htmlFor="video" className="block text-sm font-medium text-gray-700 mb-1">
-                Sign Video *
+                Sign Video * (Max 10MB)
               </label>
               <input
                 type="file"

@@ -8,6 +8,7 @@ import Addsign from '../Components/Addsign'
 import PageNotFound from '../Pages/PageNotFound'
 import { useAppContext } from '../Context/AppContext'
 import AddSign from '../Pages/AddSign'
+import ViewAllSigns from '../Pages/ViewAllSigns'
 
 const AllRoutes = () => {
   const isAdminPage=useLocation().pathname.includes("admin_page");
@@ -23,7 +24,7 @@ const AllRoutes = () => {
         <Route path='/admin_page' element={isUser ? <PageNotFound/> : <AdminPage/>}>
           <Route index element={<AdminDashboard />} />
           <Route path='add_sign' element={<AddSign/>} />
-          <Route path='facilities' element={<FacilitiesPage />} />
+          <Route path='view_signs' element={<ViewAllSigns/>} />
           <Route path='publications' element={<PublicationsPage />} />
           <Route path='projects' element={<ProjectsPage />} />
         </Route>

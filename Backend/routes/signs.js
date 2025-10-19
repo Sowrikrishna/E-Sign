@@ -23,7 +23,43 @@ const uploadToCloudinary = (file, resourceType) => {
   });
 };
 
-// Upload sign content
+// ✅ ADD THIS ROUTE - Check keyword availability
+router.get('/check-keyword/:keyword', async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    
+    if (!keyword || keyword.trim() === '') {
+      return res.status(400).json({ error: 'Keyword is required' });
+    }
+
+    // Check if keyword exists (case-insensitive search)
+    const existingSign = await Sign.findOne({ 
+      keyword: { $regex: new RegExp(`^${keyword}$`, 'i') } 
+    });
+
+    res.json({ 
+      exists: !!existingSign,
+      keyword: keyword.toLowerCase()
+    });
+    
+  } catch (error) {
+    console.error('Error checking keyword:', error);
+    res.status(500).json({ error: 'Failed to check keyword availability' });
+  }
+});
+
+// ✅ FIXED: Get all signs from MongoDB
+router.get('/', async (req, res) => {
+  try {
+    const signs = await Sign.find({}).select('keyword description imageUrl videoUrl');
+    res.json(signs);
+  } catch (error) {
+    console.error('Error fetching signs:', error);
+    res.status(500).json({ error: 'Failed to fetch signs' });
+  }
+});
+
+// ✅ Upload sign content
 router.post('/', upload.fields([
   { name: 'image', maxCount: 1 },
   { name: 'video', maxCount: 1 }
@@ -43,6 +79,17 @@ router.post('/', upload.fields([
     if (videoFile.size > 10 * 1024 * 1024) {
       return res.status(400).json({ 
         message: 'Video size must be less than 10MB' 
+      });
+    }
+
+    // ✅ ADD: Check if keyword already exists before uploading files
+    const existingSign = await Sign.findOne({ 
+      keyword: { $regex: new RegExp(`^${keyword}$`, 'i') } 
+    });
+
+    if (existingSign) {
+      return res.status(400).json({ 
+        message: `Keyword "${keyword}" already exists. Please choose a different keyword.` 
       });
     }
 
@@ -73,19 +120,6 @@ router.post('/', upload.fields([
     console.error('Upload error:', error);
     res.status(500).json({ 
       message: 'Error uploading files',
-      error: error.message 
-    });
-  }
-});
-
-// Get all signs
-router.get('/', async (req, res) => {
-  try {
-    const signs = await Sign.find().sort({ createdAt: -1 });
-    res.json(signs);
-  } catch (error) {
-    res.status(500).json({ 
-      message: 'Error fetching signs',
       error: error.message 
     });
   }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet,Navigate, useNavigate} from 'react-router-dom';
 
 const AdminPage = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -7,14 +7,18 @@ const AdminPage = () => {
     const navLinks = [
         { name: 'Profile of the Centre', path: '/admin_page' },
         { name: 'Add Sign', path: '/admin_page/add_sign' },
-        { name: 'Facilities', path: '/admin_page/facilities' },
+        { name: 'ViewSigns', path: '/admin_page/view_signs' },
         { name: 'Publications', path: '/admin_page/publications' },
         { name: 'Projects', path: '/admin_page/projects' },
     ];
 
+    const navigate=useNavigate();
+
     const handleLogout = () => {
         // Add your logout logic here
         console.log('Logout clicked');
+        navigate('/');
+    
     };
 
     return (

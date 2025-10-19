@@ -17,6 +17,8 @@ const AddSign = () => {
   // State for submission feedback
   const [message, setMessage] = useState({ type: '', text: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
+  const [keywordAvailable, setKeywordAvailable] = useState(null);
 
   // File size limits
   const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB
@@ -29,6 +31,48 @@ const AddSign = () => {
       ...prev,
       [name]: value
     }));
+    
+    // Reset availability check when keyword changes
+    if (name === 'keyword') {
+      setKeywordAvailable(null);
+    }
+  };
+
+  // Check if keyword already exists in database
+  const checkKeywordAvailability = async () => {
+    if (!formData.keyword.trim()) {
+      setMessage({ type: 'error', text: 'Please enter a keyword first' });
+      return;
+    }
+
+    setIsChecking(true);
+    setMessage({ type: '', text: '' });
+
+    try {
+      const response = await axios.get(`http://localhost:5000/api/signs/check-keyword/${formData.keyword.toLowerCase()}`);
+      
+      if (response.data.exists) {
+        setKeywordAvailable(false);
+        setMessage({ 
+          type: 'error', 
+          text: `Keyword "${formData.keyword}" already exists in database. Please choose a different keyword.` 
+        });
+      } else {
+        setKeywordAvailable(true);
+        setMessage({ 
+          type: 'success', 
+          text: `Keyword "${formData.keyword}" is available!` 
+        });
+      }
+    } catch (error) {
+      console.error('Error checking keyword:', error);
+      setMessage({ 
+        type: 'error', 
+        text: 'Error checking keyword availability. Please try again.' 
+      });
+    } finally {
+      setIsChecking(false);
+    }
   };
 
   // Handle image file selection and preview with size validation
@@ -69,6 +113,17 @@ const AddSign = () => {
   const validateForm = () => {
     if (!formData.keyword.trim() || !formData.description.trim() || !imageFile || !videoFile) {
       setMessage({ type: 'error', text: 'Please fill in all fields' });
+      return false;
+    }
+    
+    // Check if keyword availability was checked and is available
+    if (keywordAvailable === null) {
+      setMessage({ type: 'error', text: 'Please check keyword availability first' });
+      return false;
+    }
+    
+    if (keywordAvailable === false) {
+      setMessage({ type: 'error', text: 'Keyword already exists. Please choose a different keyword.' });
       return false;
     }
     
@@ -122,6 +177,7 @@ const AddSign = () => {
       setVideoFile(null);
       setImagePreview(null);
       setVideoPreview(null);
+      setKeywordAvailable(null);
       
       // Clear file inputs
       document.getElementById('image').value = '';
@@ -157,28 +213,57 @@ const AddSign = () => {
             <div className={`mb-6 p-3 rounded-md ${
               message.type === 'success' 
                 ? 'bg-green-100 text-green-800 border border-green-200' 
-                : 'bg-red-100 text-red-800 border border-red-200'
+                : message.type === 'error'
+                ? 'bg-red-100 text-red-800 border border-red-200'
+                : 'bg-blue-100 text-blue-800 border border-blue-200'
             }`}>
               {message.text}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Keyword Input */}
+            {/* Keyword Input with Availability Check */}
             <div>
               <label htmlFor="keyword" className="block text-sm font-medium text-gray-700 mb-1">
                 Keyword *
               </label>
-              <input
-                type="text"
-                id="keyword"
-                name="keyword"
-                value={formData.keyword}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                placeholder="e.g., Server"
-                required
-              />
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  id="keyword"
+                  name="keyword"
+                  value={formData.keyword}
+                  onChange={handleInputChange}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                  placeholder="e.g., Server"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={checkKeywordAvailability}
+                  disabled={isChecking || !formData.keyword.trim()}
+                  className={`px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+                    isChecking || !formData.keyword.trim()
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
+                  } transition duration-200 whitespace-nowrap`}
+                >
+                  {isChecking ? 'Checking...' : 'Check Availability'}
+                </button>
+              </div>
+              
+              {/* Availability Status Indicator */}
+              {keywordAvailable !== null && (
+                <div className={`mt-2 text-sm font-medium ${
+                  keywordAvailable ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {keywordAvailable ? (
+                    <span>✓ Keyword is available</span>
+                  ) : (
+                    <span>✗ Keyword already exists</span>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Image Upload with Preview */}
@@ -251,10 +336,12 @@ const AddSign = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={isSubmitting}
-              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 ${
-                isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+              disabled={isSubmitting || keywordAvailable === false}
+              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white ${
+                isSubmitting || keywordAvailable === false
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+              } transition duration-200`}
             >
               {isSubmitting ? 'Uploading...' : 'Upload Content'}
             </button>

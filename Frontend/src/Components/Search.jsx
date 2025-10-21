@@ -1,125 +1,310 @@
-{/*import React, { useState, useEffect } from 'react';
-import {
-  Autocomplete,
-  TextField,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Typography,
-  InputAdornment
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import sampleImage from '../assets/Capture.png';
+// {/*import React, { useState, useEffect } from 'react';
+// import {
+//   Autocomplete,
+//   TextField,
+//   Card,
+//   CardActions,
+//   CardContent,
+//   CardMedia,
+//   Button,
+//   Typography,
+//   InputAdornment
+// } from '@mui/material';
+// import SearchIcon from '@mui/icons-material/Search';
+// import sampleImage from '../assets/Capture.png';
 
-const datadisabled = [
-  { id: 1, name: 'sowri' },
-  { id: 2, name: "cpu" },
-  { id: 3, name: "printer" },
-  { id: 4, name: "speaker" },
-  { id: 5, name: "keyboard" },
-  { id: 6, name: "mouse" },
-  { id: 7, name: "webcam" },
-  { id: 8, name: "microphone" },
-  { id: 9, name: "router" },
-  { id: 10, name: "modem" },
+// const datadisabled = [
+//   { id: 1, name: 'sowri' },
+//   { id: 2, name: "cpu" },
+//   { id: 3, name: "printer" },
+//   { id: 4, name: "speaker" },
+//   { id: 5, name: "keyboard" },
+//   { id: 6, name: "mouse" },
+//   { id: 7, name: "webcam" },
+//   { id: 8, name: "microphone" },
+//   { id: 9, name: "router" },
+//   { id: 10, name: "modem" },
  
-];
+// ];
 
-const Search= () => {
-  const [selectedDevice, setSelectedDevice] = useState(null);
-  const [description, setDescription] = useState('');
+// const Search= () => {
+//   const [selectedDevice, setSelectedDevice] = useState(null);
+//   const [description, setDescription] = useState('');
 
-  // Simulate fetching description from API
-  useEffect(() => {
-    if (selectedDevice) {
-      setTimeout(() => {
-        setDescription(`This is a detailed description of the ${selectedDevice.name}. It is an essential component in a computer setup.`);
-      }, 500);
-    }
-  }, [selectedDevice]);
+//   // Simulate fetching description from API
+//   useEffect(() => {
+//     if (selectedDevice) {
+//       setTimeout(() => {
+//         setDescription(`This is a detailed description of the ${selectedDevice.name}. It is an essential component in a computer setup.`);
+//       }, 500);
+//     }
+//   }, [selectedDevice]);
 
-  return (
-    <div
-      style={{
-        width: '90%',
-        maxWidth: '700px',
-        margin: '0 auto',
-        padding: '40px 0',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <h1 style={{color: "brown" , marginBottom: 30}}>Technical Sign Dictionary</h1>
-      <Autocomplete
-        options={datadisabled}
-        getOptionLabel={(option) => option.name}
-        onChange={(event, newValue) => setSelectedDevice(newValue)}
-        sx={{ width: '100%', marginBottom: 4 }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            placeholder="Search for a device"
-            variant="outlined"
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              style: {
-                borderRadius: 25
-              }
-            }}
-          />
-        )}
-      />
+//   return (
+//     <div
+//       style={{
+//         width: '90%',
+//         maxWidth: '700px',
+//         margin: '0 auto',
+//         padding: '40px 0',
+//         display: 'flex',
+//         flexDirection: 'column',
+//         alignItems: 'center',
+//       }}
+//     >
+//       <h1 style={{color: "brown" , marginBottom: 30}}>Technical Sign Dictionary</h1>
+//       <Autocomplete
+//         options={datadisabled}
+//         getOptionLabel={(option) => option.name}
+//         onChange={(event, newValue) => setSelectedDevice(newValue)}
+//         sx={{ width: '100%', marginBottom: 4 }}
+//         renderInput={(params) => (
+//           <TextField
+//             {...params}
+//             placeholder="Search for a device"
+//             variant="outlined"
+//             InputProps={{
+//               ...params.InputProps,
+//               startAdornment: (
+//                 <InputAdornment position="start">
+//                   <SearchIcon />
+//                 </InputAdornment>
+//               ),
+//               style: {
+//                 borderRadius: 25
+//               }
+//             }}
+//           />
+//         )}
+//       />
 
-      {/* Video Card 
-      {selectedDevice && (
-        <Card sx={{ width: '100%', padding: "10px"}}>
-          {/* Image 
-          <CardMedia
-          component="img"
-          src={sampleImage}
-          alt="Device Image"
-          sx={{marginBottom:"10px", height:"500px",objectFit:"fill",'@media(max-width: 772px)':{height: 400},'@media (max-width:500px)': {height: 300,
-      }}}
-          />
+//       {/* Video Card 
+//       {selectedDevice && (
+//         <Card sx={{ width: '100%', padding: "10px"}}>
+//           {/* Image 
+//           <CardMedia
+//           component="img"
+//           src={sampleImage}
+//           alt="Device Image"
+//           sx={{marginBottom:"10px", height:"500px",objectFit:"fill",'@media(max-width: 772px)':{height: 400},'@media (max-width:500px)': {height: 300,
+//       }}}
+//           />
 
-          {/* Video 
-          <CardMedia
-            component="iframe"
-            height="500"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="Device Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            sx={{'@media(max-width: 772px)':{height: 400},'@media (max-width:500px)': {height: 300,
-      }}}
-            allowFullScreen
-          />
+//           {/* Video 
+//           <CardMedia
+//             component="iframe"
+//             height="500"
+//             src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+//             title="Device Video"
+//             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+//             sx={{'@media(max-width: 772px)':{height: 400},'@media (max-width:500px)': {height: 300,
+//       }}}
+//             allowFullScreen
+//           />
 
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {selectedDevice.name.charAt(0).toUpperCase() + selectedDevice.name.slice(1)}
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {description || 'Loading description...'}
-            </Typography>
-          </CardContent>
+//           <CardContent>
+//             <Typography gutterBottom variant="h5" component="div">
+//               {selectedDevice.name.charAt(0).toUpperCase() + selectedDevice.name.slice(1)}
+//             </Typography>
+//             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+//               {description || 'Loading description...'}
+//             </Typography>
+//           </CardContent>
 
           
-    </Card>
+//     </Card>
 
-      )}
-    </div>
-  );
-};
+//       )}
+//     </div>
+//   );
+// };
 
-export default Search; */}
+// export default Search; */}
+
+// import React, { useState, useEffect } from 'react';
+// import {
+//   Autocomplete,
+//   TextField,
+//   Card,
+//   CardContent,
+//   CardMedia,
+//   Typography,
+//   InputAdornment,
+//   CircularProgress,
+//   Alert
+// } from '@mui/material';
+// import SearchIcon from '@mui/icons-material/Search';
+// import sampleImage from '../assets/Capture.png';
+
+// // Mock data that matches your MongoDB schema
+// const mockDevices = [
+//   {
+//     _id: '1',
+//     keyword: 'cpu',
+//     description: 'Central Processing Unit - the primary component of a computer that performs most of the processing inside a computer.',
+//     imageUrl: sampleImage,
+//     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+//   },
+//   {
+//     _id: '2',
+//     keyword: 'printer',
+//     description: 'A device that produces text and graphics on physical media like paper or transparency film.',
+//     imageUrl: sampleImage,
+//     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+//   },
+  
+// ];
+
+// const Search = () => {
+//   const [selectedDevice, setSelectedDevice] = useState(null);
+//   const [devices, setDevices] = useState(mockDevices); // Start with mock data
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState('');
+
+//   // Try to fetch from real API, fallback to mock data
+//   useEffect(() => {
+//     const fetchDevices = async () => {
+//       try {
+//         setLoading(true);
+//         setError('');
+        
+//         // Try to fetch from API
+//         const response = await fetch('http://localhost:5000/api/signs', {
+//           method: 'GET',
+//           headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json',
+//           },
+//         });
+
+//         // Check if response is HTML (error page) or JSON
+//         const contentType = response.headers.get('content-type');
+        
+//         if (response.ok && contentType && contentType.includes('application/json')) {
+//           const data = await response.json();
+//           setDevices(data);
+//           console.log('Successfully loaded data from API');
+//         } else {
+//           // If API fails, use mock data and show warning
+//           const responseText = await response.text();
+//           console.warn('API returned non-JSON response, using mock data. Response:', responseText.substring(0, 100));
+//           setDevices(mockDevices);
+//           setError('Connected to demo data. Backend server not available.');
+//         }
+        
+//       } catch (err) {
+//         console.warn('Cannot connect to API, using mock data:', err.message);
+//         setDevices(mockDevices);
+//         setError('Using demo data. Backend server not available.');
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchDevices();
+//   }, []);
+
+//   return (
+//     <div
+//       style={{
+//         width: '90%',
+//         maxWidth: '700px',
+//         margin: '0 auto',
+//         padding: '40px 0',
+//         display: 'flex',
+//         flexDirection: 'column',
+//         alignItems: 'center',
+//       }}
+//     >
+//       <h1 style={{ color: "brown", marginBottom: 30 }}>Technical Sign Dictionary</h1>
+      
+//       {error && (
+//         <Alert severity="info" sx={{ width: '100%', marginBottom: 2 }}>
+//           {error}
+//         </Alert>
+//       )}
+
+//       <Autocomplete
+//         options={devices}
+//         getOptionLabel={(option) => option.keyword}
+//         value={selectedDevice}
+//         onChange={(event, newValue) => setSelectedDevice(newValue)}
+//         loading={loading}
+//         sx={{ width: '100%', marginBottom: 4 }}
+//         renderInput={(params) => (
+//           <TextField
+//             {...params}
+//             placeholder="Search for devices (e.g., cpu, printer, keyboard)"
+//             variant="outlined"
+//             InputProps={{
+//               ...params.InputProps,
+//               startAdornment: (
+//                 <InputAdornment position="start">
+//                   <SearchIcon />
+//                 </InputAdornment>
+//               ),
+//               endAdornment: (
+//                 <>
+//                   {loading ? <CircularProgress color="inherit" size={20} /> : null}
+//                   {params.InputProps.endAdornment}
+//                 </>
+//               ),
+//               style: {
+//                 borderRadius: 25
+//               }
+//             }}
+//           />
+//         )}
+//       />
+
+//       {/* Device Card */}
+//       {selectedDevice && (
+//         <Card sx={{ width: '100%', padding: "10px" }}>
+//           {/* Image */}
+//           <CardMedia
+//             component="img"
+//             src={selectedDevice.imageUrl || sampleImage}
+//             alt={selectedDevice.keyword}
+//             sx={{
+//               marginBottom: "10px",
+//               height: "500px",
+//               objectFit: "fill",
+//               '@media (max-width: 772px)': { height: 400 },
+//               '@media (max-width: 500px)': { height: 300 }
+//             }}
+//           />
+
+//           {/* Video */}
+//           <CardMedia
+//             component="iframe"
+//             height="500"
+//             src={selectedDevice.videoUrl}
+//             title={selectedDevice.keyword}
+//             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+//             sx={{
+//               '@media (max-width: 772px)': { height: 400 },
+//               '@media (max-width: 500px)': { height: 300 }
+//             }}
+//             allowFullScreen
+//           />
+
+//           <CardContent>
+//             <Typography gutterBottom variant="h5" component="div">
+//               {selectedDevice.keyword.charAt(0).toUpperCase() + selectedDevice.keyword.slice(1)}
+//             </Typography>
+//             <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
+//               {selectedDevice.description}
+//             </Typography>
+//           </CardContent>
+//         </Card>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Search;
+
+
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -131,55 +316,47 @@ import {
   Typography,
   InputAdornment,
   CircularProgress,
-  Alert
+  Alert,
+  Box,
+  Skeleton,
+  Divider
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import sampleImage from '../assets/Capture.png';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import ImageIcon from '@mui/icons-material/Image';
 
-// Mock data that matches your MongoDB schema
+// Mock data without categories
 const mockDevices = [
   {
     _id: '1',
     keyword: 'cpu',
     description: 'Central Processing Unit - the primary component of a computer that performs most of the processing inside a computer.',
-    imageUrl: sampleImage,
+    imageUrl: '/assets/1.jpg',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
   },
   {
     _id: '2',
     keyword: 'printer',
     description: 'A device that produces text and graphics on physical media like paper or transparency film.',
-    imageUrl: sampleImage,
+    imageUrl: '/assets/2.jpg',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
   },
   {
     _id: '3',
     keyword: 'keyboard',
-    description: 'An input device used to enter characters and functions into the computer system by pressing buttons, or keys.',
-    imageUrl: sampleImage,
+    description: 'An input device with keys used to enter data and commands into a computer.',
+    imageUrl: '/assets/3.jpg',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
   },
-  {
-    _id: '4',
-    keyword: 'mouse',
-    description: 'A hand-held pointing device that detects two-dimensional motion relative to a surface.',
-    imageUrl: sampleImage,
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-  },
-  {
-    _id: '5',
-    keyword: 'monitor',
-    description: 'An output device that displays information in pictorial or textual form.',
-    imageUrl: sampleImage,
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-  }
 ];
 
 const Search = () => {
   const [selectedDevice, setSelectedDevice] = useState(null);
-  const [devices, setDevices] = useState(mockDevices); // Start with mock data
+  const [devices, setDevices] = useState(mockDevices);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [imageLoading, setImageLoading] = useState(true);
+  const [videoLoading, setVideoLoading] = useState(true);
 
   // Try to fetch from real API, fallback to mock data
   useEffect(() => {
@@ -188,7 +365,6 @@ const Search = () => {
         setLoading(true);
         setError('');
         
-        // Try to fetch from API
         const response = await fetch('http://localhost:5000/api/signs', {
           method: 'GET',
           headers: {
@@ -197,17 +373,14 @@ const Search = () => {
           },
         });
 
-        // Check if response is HTML (error page) or JSON
         const contentType = response.headers.get('content-type');
         
         if (response.ok && contentType && contentType.includes('application/json')) {
           const data = await response.json();
           setDevices(data);
-          console.log('Successfully loaded data from API');
         } else {
-          // If API fails, use mock data and show warning
           const responseText = await response.text();
-          console.warn('API returned non-JSON response, using mock data. Response:', responseText.substring(0, 100));
+          console.warn('API returned non-JSON response, using mock data.');
           setDevices(mockDevices);
           setError('Connected to demo data. Backend server not available.');
         }
@@ -224,54 +397,122 @@ const Search = () => {
     fetchDevices();
   }, []);
 
+  // Reset loading states when device changes
+  useEffect(() => {
+    if (selectedDevice) {
+      setImageLoading(true);
+      setVideoLoading(true);
+    }
+  }, [selectedDevice]);
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
+
+  const handleVideoLoad = () => {
+    setVideoLoading(false);
+  };
+
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         width: '90%',
-        maxWidth: '700px',
+        maxWidth: '750px',
         margin: '0 auto',
-        padding: '40px 0',
+        padding: '40px 10px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        background: 'linear-gradient(135deg, #003366 0%, #004080 100%)',
+        minHeight: '100vh',
+        borderRadius: '20px',
+        marginTop: '20px',
+        marginBottom: '20px',
+        boxShadow: '0 10px 30px rgba(0, 51, 102, 0.3)'
       }}
     >
-      <h1 style={{ color: "brown", marginBottom: 30 }}>Technical Sign Dictionary</h1>
-      
+      {/* Header */}
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
+        <Typography 
+          variant="h3" 
+          component="h1" 
+          sx={{ 
+            color: 'white', 
+            fontWeight: 'bold',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+            background: 'linear-gradient(45deg, #FFFFFF, #FFD700)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            mb: 1,
+            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
+          }}
+        >
+          Technical Sign Dictionary
+        </Typography>
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            color: 'rgba(255,255,255,0.9)',
+            fontSize: { xs: '1rem', sm: '1.2rem' }
+          }}
+        >
+          Learn Technical Signs with Visual Demonstrations
+        </Typography>
+      </Box>
+
       {error && (
-        <Alert severity="info" sx={{ width: '100%', marginBottom: 2 }}>
+        <Alert 
+          severity="info" 
+          sx={{ 
+            width: '100%', 
+            mb: 3,
+            borderRadius: '15px',
+            background: 'rgba(255,255,255,0.95)',
+            color: '#003366',
+            fontWeight: 'bold'
+          }}
+        >
           {error}
         </Alert>
       )}
 
+      {/* Search Bar */}
       <Autocomplete
         options={devices}
         getOptionLabel={(option) => option.keyword}
         value={selectedDevice}
         onChange={(event, newValue) => setSelectedDevice(newValue)}
         loading={loading}
-        sx={{ width: '100%', marginBottom: 4 }}
+        sx={{ 
+          width: '100%', 
+          mb: 4,
+          '& .MuiOutlinedInput-root': {
+            borderRadius: '25px',
+            background: 'white',
+            boxShadow: '0 8px 25px rgba(0,0,0,0.2)',
+            '&:hover': {
+              boxShadow: '0 12px 30px rgba(0,0,0,0.25)'
+            }
+          }
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder="Search for devices (e.g., cpu, printer, keyboard)"
+            placeholder="Search for technical devices and signs..."
             variant="outlined"
             InputProps={{
               ...params.InputProps,
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon />
+                  <SearchIcon sx={{ color: '#003366', fontSize: '28px' }} />
                 </InputAdornment>
               ),
               endAdornment: (
                 <>
-                  {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                  {loading ? <CircularProgress size={24} sx={{ color: '#003366' }} /> : null}
                   {params.InputProps.endAdornment}
                 </>
               ),
-              style: {
-                borderRadius: 25
-              }
             }}
           />
         )}
@@ -279,46 +520,170 @@ const Search = () => {
 
       {/* Device Card */}
       {selectedDevice && (
-        <Card sx={{ width: '100%', padding: "10px" }}>
-          {/* Image */}
-          <CardMedia
-            component="img"
-            src={selectedDevice.imageUrl || sampleImage}
-            alt={selectedDevice.keyword}
-            sx={{
-              marginBottom: "10px",
-              height: "500px",
-              objectFit: "fill",
-              '@media (max-width: 772px)': { height: 400 },
-              '@media (max-width: 500px)': { height: 300 }
-            }}
-          />
-
-          {/* Video */}
-          <CardMedia
-            component="iframe"
-            height="500"
-            src={selectedDevice.videoUrl}
-            title={selectedDevice.keyword}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            sx={{
-              '@media (max-width: 772px)': { height: 400 },
-              '@media (max-width: 500px)': { height: 300 }
-            }}
-            allowFullScreen
-          />
-
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+        <Card 
+          sx={{ 
+            width: '100%', 
+            padding: 3,
+            borderRadius: '20px',
+            background: 'linear-gradient(145deg, #ffffff 0%, #f0f8ff 100%)',
+            boxShadow: '0 20px 40px rgba(0, 51, 102, 0.2)',
+            border: '2px solid #003366'
+          }}
+        >
+          {/* Header with Title */}
+          <Box sx={{ mb: 2 }}>
+            <Typography 
+              variant="h4" 
+              component="h2"
+              sx={{ 
+                fontWeight: 'bold',
+                background: 'linear-gradient(45deg, #003366, #004080)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textAlign: 'center',
+                fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' }
+              }}
+            >
               {selectedDevice.keyword.charAt(0).toUpperCase() + selectedDevice.keyword.slice(1)}
             </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
+          </Box>
+
+          <Divider sx={{ 
+            mb: 3, 
+            height: '3px',
+            background: 'linear-gradient(90deg, transparent, #003366, transparent)',
+            border: 'none'
+          }} />
+
+          {/* Image Section */}
+          <Box sx={{ mb: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, justifyContent: 'center' }}>
+              <ImageIcon sx={{ color: '#003366', mr: 1, fontSize: '2rem' }} />
+              <Typography variant="h5" sx={{ color: '#003366', fontWeight: 'bold' }}>
+                Visual Reference
+              </Typography>
+            </Box>
+            
+            {imageLoading && (
+              <Skeleton 
+                variant="rectangular" 
+                sx={{
+                  height: { xs: 250, sm: 350, md: 450 },
+                  borderRadius: '15px',
+                  mb: 2,
+                  background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)'
+                }}
+              />
+            )}
+            <CardMedia
+              component="img"
+              src={selectedDevice.imageUrl}
+              alt={selectedDevice.keyword}
+              onLoad={handleImageLoad}
+              sx={{
+                display: imageLoading ? 'none' : 'block',
+                height: { xs: 250, sm: 350, md: 450 },
+                objectFit: "cover",
+                borderRadius: '15px',
+                boxShadow: '0 10px 25px rgba(0, 51, 102, 0.3)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                '&:hover': {
+                  transform: 'scale(1.02)',
+                  boxShadow: '0 15px 35px rgba(0, 51, 102, 0.4)'
+                }
+              }}
+            />
+          </Box>
+
+          {/* Video Section */}
+          <Box sx={{ mb: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, justifyContent: 'center' }}>
+              <PlayArrowIcon sx={{ color: '#003366', mr: 1, fontSize: '2rem' }} />
+              <Typography variant="h5" sx={{ color: '#003366', fontWeight: 'bold' }}>
+                Video Demonstration
+              </Typography>
+            </Box>
+            
+            {videoLoading && (
+              <Skeleton 
+                variant="rectangular" 
+                sx={{
+                  height: { xs: 250, sm: 350, md: 450 },
+                  borderRadius: '15px',
+                  mb: 2,
+                  background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)'
+                }}
+              />
+            )}
+            <Box sx={{ display: videoLoading ? 'none' : 'block', position: 'relative' }}>
+              <CardMedia
+                component="iframe"
+                height="450"
+                src={selectedDevice.videoUrl}
+                title={selectedDevice.keyword}
+                onLoad={handleVideoLoad}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                sx={{
+                  height: { xs: 250, sm: 350, md: 450 },
+                  borderRadius: '15px',
+                  boxShadow: '0 10px 25px rgba(0, 51, 102, 0.3)',
+                  border: 'none',
+                  transition: 'box-shadow 0.3s ease',
+                  '&:hover': {
+                    boxShadow: '0 15px 35px rgba(0, 51, 102, 0.4)'
+                  }
+                }}
+                allowFullScreen
+              />
+            </Box>
+          </Box>
+
+          {/* Description */}
+          <CardContent sx={{ px: 0, pb: 0 }}>
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                color: '#003366',
+                lineHeight: 1.7,
+                fontSize: '1.1rem',
+                background: 'linear-gradient(135deg, rgba(0, 51, 102, 0.05) 0%, rgba(0, 64, 128, 0.1) 100%)',
+                padding: 3,
+                borderRadius: '15px',
+                border: '2px solid rgba(0, 51, 102, 0.2)',
+                fontWeight: '500'
+              }}
+            >
               {selectedDevice.description}
             </Typography>
           </CardContent>
         </Card>
       )}
-    </div>
+
+      {/* No Device Selected State */}
+      {!selectedDevice && (
+        <Box 
+          sx={{ 
+            textAlign: 'center', 
+            color: 'white',
+            background: 'rgba(255, 255, 255, 0.1)',
+            padding: 4,
+            borderRadius: '20px',
+            backdropFilter: 'blur(10px)',
+            border: '2px dashed rgba(255, 255, 255, 0.3)',
+            maxWidth: '500px',
+            width: '100%'
+          }}
+        >
+          <SearchIcon sx={{ fontSize: 80, mb: 2, opacity: 0.8, color: '#FFD700' }} />
+          <Typography variant="h4" sx={{ mb: 2, fontWeight: 'bold', color: '#FFFFFF' }}>
+            Discover Technical Signs
+          </Typography>
+          <Typography variant="h6" sx={{ opacity: 0.9, color: '#FFFFFF', lineHeight: 1.6 }}>
+            Search above to explore technical devices and learn their sign language demonstrations through images and videos.
+          </Typography>
+        </Box>
+      )}
+    </Box>
   );
 };
 

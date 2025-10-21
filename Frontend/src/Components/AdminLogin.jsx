@@ -32,8 +32,8 @@ const AdminLogin = ({ onClose }) => {
     
     if (username === "sowri" && password === "123") {
       setIsOpen(false);
-      navigate('/admin_page');
       localStorage.setItem("Name",true);
+      navigate('/admin_page');
       setIsUser(false);
       
 

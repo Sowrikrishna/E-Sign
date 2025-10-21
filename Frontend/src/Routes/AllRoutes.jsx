@@ -9,6 +9,8 @@ import PageNotFound from '../Pages/PageNotFound'
 import { useAppContext } from '../Context/AppContext'
 import AddSign from '../Pages/AddSign'
 import ViewAllSigns from '../Pages/ViewAllSigns'
+import SignManage from '../Pages/SignManage'
+import AdminDashboard from '../Pages/AdminDashboard'
 
 const AllRoutes = () => {
   const isAdminPage=useLocation().pathname.includes("admin_page");
@@ -25,12 +27,12 @@ const AllRoutes = () => {
           <Route index element={<AdminDashboard />} />
           <Route path='add_sign' element={<AddSign/>} />
           <Route path='view_signs' element={<ViewAllSigns/>} />
-          <Route path='publications' element={<PublicationsPage />} />
+          <Route path='manage_signs' element={<SignManage/>} />
           <Route path='projects' element={<ProjectsPage />} />
         </Route>
 
         {/* If you want to keep the standalone /add_Sign route */}
-        <Route path='/add_Sign' element={isUser ? <PageNotFound/> : <AddSign/>}></Route>
+        {/* <Route path='/add_Sign' element={isUser ? <PageNotFound/> : <AddSign/>}></Route> */}
 
       </Routes>
     </div>
@@ -38,26 +40,8 @@ const AllRoutes = () => {
 }
 
 // Create these components or use placeholders
-const AdminDashboard = () => (
-  <div className="bg-white rounded-lg shadow p-6">
-    <h2 className="text-2xl font-bold text-gray-800 mb-4">Admin Dashboard</h2>
-    <p className="text-gray-600">Welcome to the admin panel. Use the navigation above to manage different sections.</p>
-  </div>
-);
 
-const FacilitiesPage = () => (
-  <div className="bg-white rounded-lg shadow p-6">
-    <h2 className="text-2xl font-bold text-gray-800 mb-4">Facilities</h2>
-    <p className="text-gray-600">Facilities management content goes here.</p>
-  </div>
-);
 
-const PublicationsPage = () => (
-  <div className="bg-white rounded-lg shadow p-6">
-    <h2 className="text-2xl font-bold text-gray-800 mb-4">Publications</h2>
-    <p className="text-gray-600">Publications management content goes here.</p>
-  </div>
-);
 
 const ProjectsPage = () => (
   <div className="bg-white rounded-lg shadow p-6">

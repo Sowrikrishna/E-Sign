@@ -5,10 +5,10 @@ const AdminPage = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const navLinks = [
-        { name: 'Profile of the Centre', path: '/admin_page' },
+        { name: 'Admin Dashboard', path: '/admin_page' },
         { name: 'Add Sign', path: '/admin_page/add_sign' },
         { name: 'ViewSigns', path: '/admin_page/view_signs' },
-        { name: 'Publications', path: '/admin_page/publications' },
+        { name: 'ManageSigns', path: '/admin_page/manage_signs' },
         { name: 'Projects', path: '/admin_page/projects' },
     ];
 

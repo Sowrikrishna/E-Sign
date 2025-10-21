@@ -23,7 +23,7 @@ const uploadToCloudinary = (file, resourceType) => {
   });
 };
 
-// ✅ ADD THIS ROUTE - Check keyword availability
+// ✅ Check keyword availability
 router.get('/check-keyword/:keyword', async (req, res) => {
   try {
     const { keyword } = req.params;
@@ -32,7 +32,6 @@ router.get('/check-keyword/:keyword', async (req, res) => {
       return res.status(400).json({ error: 'Keyword is required' });
     }
 
-    // Check if keyword exists (case-insensitive search)
     const existingSign = await Sign.findOne({ 
       keyword: { $regex: new RegExp(`^${keyword}$`, 'i') } 
     });
@@ -48,10 +47,10 @@ router.get('/check-keyword/:keyword', async (req, res) => {
   }
 });
 
-// ✅ FIXED: Get all signs from MongoDB
+// ✅ Get all signs from MongoDB
 router.get('/', async (req, res) => {
   try {
-    const signs = await Sign.find({}).select('keyword description imageUrl videoUrl');
+    const signs = await Sign.find({}).select('keyword description imageUrl videoUrl createdAt updatedAt');
     res.json(signs);
   } catch (error) {
     console.error('Error fetching signs:', error);
@@ -82,7 +81,7 @@ router.post('/', upload.fields([
       });
     }
 
-    // ✅ ADD: Check if keyword already exists before uploading files
+    // Check if keyword already exists
     const existingSign = await Sign.findOne({ 
       keyword: { $regex: new RegExp(`^${keyword}$`, 'i') } 
     });
@@ -122,6 +121,149 @@ router.post('/', upload.fields([
       message: 'Error uploading files',
       error: error.message 
     });
+  }
+});
+
+// ✅ FIXED: PUT /api/signs/:id - Update sign
+router.put('/:id', upload.fields([
+  { name: 'image', maxCount: 1 },
+  { name: 'video', maxCount: 1 }
+]), async (req, res) => {
+  try {
+    console.log('Update request received for ID:', req.params.id);
+    console.log('Request body:', req.body);
+    console.log('Request files:', req.files);
+
+    const { id } = req.params;
+    const { keyword, description } = req.body;
+    const files = req.files;
+
+    // Find existing sign
+    const existingSign = await Sign.findById(id);
+    if (!existingSign) {
+      return res.status(404).json({ error: 'Sign not found' });
+    }
+
+    let updateData = { 
+      keyword: keyword || existingSign.keyword,
+      description: description || existingSign.description
+    };
+
+    // Update image if provided
+    if (files?.image) {
+      try {
+        console.log('Updating image...');
+        
+        // Delete old image from Cloudinary
+        if (existingSign.cloudinaryImageId) {
+          await cloudinary.uploader.destroy(existingSign.cloudinaryImageId);
+        }
+        
+        // Upload new image using streamifier
+        const imageResult = await uploadToCloudinary(files.image[0], 'image');
+        
+        updateData.imageUrl = imageResult.secure_url;
+        updateData.cloudinaryImageId = imageResult.public_id;
+        console.log('Image updated successfully');
+      } catch (imageError) {
+        console.error('Error updating image:', imageError);
+        return res.status(500).json({ error: 'Failed to update image' });
+      }
+    }
+
+    // Update video if provided
+    if (files?.video) {
+      try {
+        console.log('Updating video...');
+        
+        // Delete old video from Cloudinary
+        if (existingSign.cloudinaryVideoId) {
+          await cloudinary.uploader.destroy(existingSign.cloudinaryVideoId, { 
+            resource_type: 'video' 
+          });
+        }
+        
+        // Upload new video using streamifier
+        const videoResult = await uploadToCloudinary(files.video[0], 'video');
+        
+        updateData.videoUrl = videoResult.secure_url;
+        updateData.cloudinaryVideoId = videoResult.public_id;
+        console.log('Video updated successfully');
+      } catch (videoError) {
+        console.error('Error updating video:', videoError);
+        return res.status(500).json({ error: 'Failed to update video' });
+      }
+    }
+
+    // Update in database
+    const updatedSign = await Sign.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true, runValidators: true }
+    );
+
+    console.log('Sign updated successfully');
+    res.json(updatedSign);
+
+  } catch (error) {
+    console.error('Update error details:', error);
+    
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ error: error.message });
+    }
+    
+    if (error.name === 'CastError') {
+      return res.status(400).json({ error: 'Invalid sign ID' });
+    }
+    
+    res.status(500).json({ 
+      error: 'Internal server error during update',
+      details: error.message 
+    });
+  }
+});
+
+// ✅ DELETE /api/signs/:id - Delete sign
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const sign = await Sign.findById(id);
+    if (!sign) {
+      return res.status(404).json({ error: 'Sign not found' });
+    }
+
+    // Delete from Cloudinary
+    await cloudinary.uploader.destroy(sign.cloudinaryImageId);
+    await cloudinary.uploader.destroy(sign.cloudinaryVideoId, { 
+      resource_type: 'video' 
+    });
+
+    // Delete from database
+    await Sign.findByIdAndDelete(id);
+
+    res.json({ message: 'Sign deleted successfully' });
+  } catch (error) {
+    console.error('Delete error:', error);
+    res.status(500).json({ error: 'Failed to delete sign' });
+  }
+});
+
+//to get the created time and date
+router.get('/', async (req, res) => {
+  try {
+    // Remove .select() to get ALL fields including timestamps
+    const signs = await Sign.find({}).sort({ createdAt: -1 });
+    
+    // Or if you want specific fields + timestamps:
+    // const signs = await Sign.find({})
+    //   .select('keyword description imageUrl videoUrl createdAt updatedAt')
+    //   .sort({ createdAt: -1 });
+    
+    res.json(signs);
+  } catch (error) {
+    console.error('Error fetching signs:', error);
+    res.status(500).json({ error: 'Failed to fetch signs' });
   }
 });
 

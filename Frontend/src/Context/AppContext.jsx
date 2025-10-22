@@ -4,6 +4,8 @@ export const AppContext = createContext();
 
 export const AppContextProvider=({children})=>{
     const [isUser,setIsUser]=useState(false);
+    const [isAdmin,setIsAdmin]=useState(false);
+    
     // Add font size state
     const [fontSize, setFontSize] = useState('base'); // 'sm', 'base', 'lg'
 
@@ -24,8 +26,8 @@ export const AppContextProvider=({children})=>{
 
     //in this use all the variables to export to other components
     const value={
-        isUser,
-        setIsUser,
+        isUser,setIsUser,
+        isAdmin,setIsAdmin,
         fontSize,
         increaseFontSize,
         decreaseFontSize,

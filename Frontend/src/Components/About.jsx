@@ -5,20 +5,6 @@ const About = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#003366] to-[#004080] rounded-full mb-6 shadow-lg">
-            <FaUsers className="text-white text-3xl" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-[#003366] mb-4">
-            Centre for Differently Abled Persons
-          </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#003366] to-[#004080] mx-auto mb-6 rounded-full"></div>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Bharathidasan University • Established 2011
-          </p>
-        </div>
 
         {/* About the Centre Section */}
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-12 border-l-4 border-[#003366]">

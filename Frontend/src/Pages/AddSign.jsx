@@ -201,16 +201,16 @@ const AddSign = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-        <div className="p-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+        <div className="p-4 sm:p-6 md:p-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
             Upload Sign Language Content
           </h2>
 
           {/* Message Display */}
           {message.text && (
-            <div className={`mb-6 p-3 rounded-md ${
+            <div className={`mb-4 sm:mb-6 p-3 rounded-md text-sm sm:text-base ${
               message.type === 'success' 
                 ? 'bg-green-100 text-green-800 border border-green-200' 
                 : message.type === 'error'
@@ -221,20 +221,20 @@ const AddSign = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Keyword Input with Availability Check */}
             <div>
               <label htmlFor="keyword" className="block text-sm font-medium text-gray-700 mb-1">
                 Keyword *
               </label>
-              <div className="flex space-x-2">
+              <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
                 <input
                   type="text"
                   id="keyword"
                   name="keyword"
                   value={formData.keyword}
                   onChange={handleInputChange}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 text-sm sm:text-base"
                   placeholder="e.g., Server"
                   required
                 />
@@ -242,19 +242,19 @@ const AddSign = () => {
                   type="button"
                   onClick={checkKeywordAvailability}
                   disabled={isChecking || !formData.keyword.trim()}
-                  className={`px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+                  className={`px-4 py-2  border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
                     isChecking || !formData.keyword.trim()
                       ? 'bg-gray-400 cursor-not-allowed'
                       : 'bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
                   } transition duration-200 whitespace-nowrap`}
                 >
-                  {isChecking ? 'Checking...' : 'Check Availability'}
+                  {isChecking ? 'Checking...' : 'Check Avalability'}
                 </button>
               </div>
               
               {/* Availability Status Indicator */}
               {keywordAvailable !== null && (
-                <div className={`mt-2 text-sm font-medium ${
+                <div className={`mt-2 text-xs sm:text-sm font-medium ${
                   keywordAvailable ? 'text-green-600' : 'text-red-600'
                 }`}>
                   {keywordAvailable ? (
@@ -276,16 +276,16 @@ const AddSign = () => {
                 id="image"
                 accept="image/*"
                 onChange={handleImageChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                className="w-full text-xs sm:text-sm px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 file:mr-2 file:py-2 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 required
               />
               {imagePreview && (
                 <div className="mt-3">
-                  <p className="text-sm text-gray-600 mb-1">Image Preview:</p>
+                  <p className="text-xs sm:text-sm text-gray-600 mb-1">Image Preview:</p>
                   <img 
                     src={imagePreview} 
                     alt="Preview" 
-                    className="max-w-full h-32 object-cover rounded-md border border-gray-200"
+                    className="w-full max-w-xs mx-auto h-24 sm:h-32 object-cover rounded-md border border-gray-200"
                   />
                 </div>
               )}
@@ -301,16 +301,16 @@ const AddSign = () => {
                 id="video"
                 accept="video/*"
                 onChange={handleVideoChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                className="w-full text-xs sm:text-sm px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 file:mr-2 file:py-2 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 required
               />
               {videoPreview && (
                 <div className="mt-3">
-                  <p className="text-sm text-gray-600 mb-1">Video Preview:</p>
+                  <p className="text-xs sm:text-sm text-gray-600 mb-1">Video Preview:</p>
                   <video 
                     src={videoPreview} 
                     controls 
-                    className="max-w-full h-32 rounded-md border border-gray-200"
+                    className="w-full max-w-xs mx-auto h-24 sm:h-32 rounded-md border border-gray-200"
                   />
                 </div>
               )}
@@ -327,7 +327,7 @@ const AddSign = () => {
                 value={formData.description}
                 onChange={handleInputChange}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 text-sm sm:text-base"
                 placeholder="Enter a brief description of the sign..."
                 required
               />
@@ -337,7 +337,7 @@ const AddSign = () => {
             <button
               type="submit"
               disabled={isSubmitting || keywordAvailable === false}
-              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white ${
+              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white ${
                 isSubmitting || keywordAvailable === false
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'

@@ -134,7 +134,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../Context/AppContext";
 
 const AdminLogin = ({ onClose }) => {
-  const { isUser, setIsUser } = useAppContext();
+  const { isUser, setIsUser , isAdmin, setIsAdmin} = useAppContext();
   const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -173,7 +173,7 @@ const AdminLogin = ({ onClose }) => {
         // Delay redirect to show success message
         setTimeout(() => {
           setIsOpen(false);
-          localStorage.setItem("Name", true);
+          setIsAdmin(true);
           navigate('/admin_page');
           setIsUser(false);
         }, 1500);

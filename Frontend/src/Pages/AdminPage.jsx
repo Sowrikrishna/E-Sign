@@ -9,7 +9,6 @@ const AdminPage = () => {
         { name: 'Add Sign', path: '/admin_page/add_sign' },
         { name: 'ViewSigns', path: '/admin_page/view_signs' },
         { name: 'ManageSigns', path: '/admin_page/manage_signs' },
-        { name: 'Projects', path: '/admin_page/projects' },
     ];
 
     const navigate=useNavigate();
@@ -50,7 +49,7 @@ const AdminPage = () => {
                                             key={link.name}
                                             to={link.path}
                                             className={({ isActive }) =>
-                                                `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                                                `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 !no-underline ${
                                                 isActive
                                                     ? 'bg-blue-600 !text-white'
                                                     : '!text-gray-300 hover:bg-blue-700 hover:!text-white'

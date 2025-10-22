@@ -16,9 +16,7 @@ function App() {
   },[]);
   return (
     <>
-      {isUser ?  <Navbar/>: null}
       <AllRoutes/>
-      {isUser ? <Footer />: null}
     </>
   )
 }

@@ -8,12 +8,12 @@ import Contact from './Contact'
 export const Home = () => {
   return (
     <div>
-        <Navbar/>
+        {/* <Navbar/> */}
         <Banner/>
-        <Search></Search>
-        <About/>
+        <Search/>
+        {/* <About/>
         <Contact/>
-        <Footer/>
+        <Footer/> */}
     </div>
   )
 }

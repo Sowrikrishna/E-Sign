@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useAppContext } from '../Context/AppContext';
 import '../App.css';
 
@@ -25,6 +25,7 @@ const Navbar = () => {
   };
 
   return (
+    <>
     <div className="bg-gradient-to-b from-blue-900 to-blue-800 text-white shadow-2xl">
       {/* Top Utility Bar */}
       <div className="bg-blue-950 py-3 px-4 border-b border-blue-700">
@@ -81,7 +82,11 @@ const Navbar = () => {
                     Admin Login
                   </button>
                   <div className="hidden sm:block w-px h-4 bg-blue-600"></div>
-                  <button className="text-blue-100 hover:text-white hover:bg-blue-700 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap">
+                  <button onClick={(e) => handleLinkClick(e, '/about')}className="text-blue-100 hover:text-white hover:bg-blue-700 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap">
+                    About
+                  </button>
+                  <div className="hidden sm:block w-px h-4 bg-blue-600"></div>
+                  <button onClick={(e) => handleLinkClick(e, '/contact')}className="text-blue-100 hover:text-white hover:bg-blue-700 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap">
                     Contact
                   </button>
                 </div>
@@ -216,6 +221,8 @@ const Navbar = () => {
         </div>
       )}
     </div>
+    
+    </>
   );
 };
 

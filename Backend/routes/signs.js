@@ -5,7 +5,7 @@ const Sign = require('../models/Sign');
 const cloudinary = require('../config/cloudinary');
 const streamifier = require('streamifier');
 
-// Helper function to upload to Cloudinary
+// function for uploading the file to cloudinary
 const uploadToCloudinary = (file, resourceType) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
@@ -23,7 +23,7 @@ const uploadToCloudinary = (file, resourceType) => {
   });
 };
 
-// ✅ Check keyword availability
+// To Check the keyword availability
 router.get('/check-keyword/:keyword', async (req, res) => {
   try {
     const { keyword } = req.params;
@@ -47,7 +47,7 @@ router.get('/check-keyword/:keyword', async (req, res) => {
   }
 });
 
-// ✅ Get all signs from MongoDB
+// To get all signs from MongoDB 
 router.get('/', async (req, res) => {
   try {
     const signs = await Sign.find({}).select('keyword description imageUrl videoUrl createdAt updatedAt');
@@ -58,7 +58,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ Upload sign content
+// this is for Upload sign content
 router.post('/', upload.fields([
   { name: 'image', maxCount: 1 },
   { name: 'video', maxCount: 1 }
@@ -68,20 +68,20 @@ router.post('/', upload.fields([
     const imageFile = req.files['image'][0];
     const videoFile = req.files['video'][0];
 
-    // Validate file sizes
+    // Validate the image size less than 1mb
     if (imageFile.size > 1 * 1024 * 1024) {
       return res.status(400).json({ 
         message: 'Image size must be less than 1MB' 
       });
     }
-
+    //Validate the video size less than 10mb
     if (videoFile.size > 10 * 1024 * 1024) {
       return res.status(400).json({ 
         message: 'Video size must be less than 10MB' 
       });
     }
 
-    // Check if keyword already exists
+    // To check if keyword already exists
     const existingSign = await Sign.findOne({ 
       keyword: { $regex: new RegExp(`^${keyword}$`, 'i') } 
     });
@@ -98,7 +98,7 @@ router.post('/', upload.fields([
     // Upload video to Cloudinary
     const videoResult = await uploadToCloudinary(videoFile, 'video');
 
-    // Create new sign in database
+    // Creating new sign in database
     const newSign = new Sign({
       keyword,
       description,
@@ -124,7 +124,7 @@ router.post('/', upload.fields([
   }
 });
 
-// ✅ FIXED: PUT /api/signs/:id - Update sign
+// for updating the particular signs with id
 router.put('/:id', upload.fields([
   { name: 'image', maxCount: 1 },
   { name: 'video', maxCount: 1 }
@@ -223,7 +223,7 @@ router.put('/:id', upload.fields([
   }
 });
 
-// ✅ DELETE /api/signs/:id - Delete sign
+// for delete the api is  /api/signs/:id - Delete sign
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -252,13 +252,8 @@ router.delete('/:id', async (req, res) => {
 //to get the created time and date
 router.get('/', async (req, res) => {
   try {
-    // Remove .select() to get ALL fields including timestamps
-    const signs = await Sign.find({}).sort({ createdAt: -1 });
     
-    // Or if you want specific fields + timestamps:
-    // const signs = await Sign.find({})
-    //   .select('keyword description imageUrl videoUrl createdAt updatedAt')
-    //   .sort({ createdAt: -1 });
+    const signs = await Sign.find({}).sort({ createdAt: -1 });
     
     res.json(signs);
   } catch (error) {

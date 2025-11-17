@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../Context/AppContext';
 import '../App.css';
 
@@ -25,7 +25,6 @@ const Navbar = () => {
   };
 
   return (
-    <>
     <div className="bg-gradient-to-b from-blue-900 to-blue-800 text-white shadow-2xl">
       {/* Top Utility Bar */}
       <div className="bg-blue-950 py-3 px-4 border-b border-blue-700">
@@ -37,31 +36,25 @@ const Navbar = () => {
                 <button 
                   onClick={decreaseFontSize}
                   className="w-10 h-8 bg-blue-700 hover:bg-blue-600 text-white rounded-md font-bold transition-colors flex items-center justify-center text-sm"
-                  title="Decrease font size"
+                  title="Decrease zoom level"
                 >
                   A-
                 </button>
                 <button 
                   onClick={resetFontSize}
                   className="w-10 h-8 bg-blue-700 hover:bg-blue-600 text-white rounded-md font-bold transition-colors flex items-center justify-center text-sm"
-                  title="Reset font size"
+                  title="Reset zoom level to 100%"
                 >
                   A
                 </button>
                 <button 
                   onClick={increaseFontSize}
                   className="w-10 h-8 bg-blue-700 hover:bg-blue-600 text-white rounded-md font-bold transition-colors flex items-center justify-center text-sm"
-                  title="Increase font size"
+                  title="Increase zoom level"
                 >
                   A+
                 </button>
               </div>
-              
-              {!login && (
-                <button className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg text-xs font-medium transition-colors hidden sm:block whitespace-nowrap">
-                  New Registration
-                </button>
-              )}
             </div>
 
             {/* Right side - User actions */}
@@ -69,24 +62,23 @@ const Navbar = () => {
               {!login ? (
                 <div className="flex items-center space-x-2 sm:space-x-4 flex-wrap justify-center">
                   <button 
-                    onClick={(e) => handleLinkClick(e, '/')}
-                    className="text-blue-100 hover:text-white hover:bg-blue-700 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap"
-                  >
-                    Student Login
-                  </button>
-                  <div className="hidden sm:block w-px h-4 bg-blue-600"></div>
-                  <button 
                     onClick={(e) => handleLinkClick(e, '/admin_login')}
                     className="text-blue-100 hover:text-white hover:bg-blue-700 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap"
                   >
                     Admin Login
                   </button>
                   <div className="hidden sm:block w-px h-4 bg-blue-600"></div>
-                  <button onClick={(e) => handleLinkClick(e, '/about')}className="text-blue-100 hover:text-white hover:bg-blue-700 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap">
+                  <button 
+                    onClick={(e) => handleLinkClick(e, '/about')}
+                    className="text-blue-100 hover:text-white hover:bg-blue-700 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap"
+                  >
                     About
                   </button>
                   <div className="hidden sm:block w-px h-4 bg-blue-600"></div>
-                  <button onClick={(e) => handleLinkClick(e, '/contact')}className="text-blue-100 hover:text-white hover:bg-blue-700 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap">
+                  <button 
+                    onClick={(e) => handleLinkClick(e, '/contact')}
+                    className="text-blue-100 hover:text-white hover:bg-blue-700 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap"
+                  >
                     Contact
                   </button>
                 </div>
@@ -117,7 +109,7 @@ const Navbar = () => {
                 <img 
                   src="BDU_logo.png" 
                   alt="Bharathidasan University" 
-                  className="h-23 w-49 sm:h-24 sm:w-50 lg:h-28 lg:w-55 xl:h-32 xl:w-65 object-fit rounded-xl"
+                  className="h-20 w-40 sm:h-24 sm:w-48 lg:h-28 lg:w-56 xl:h-32 xl:w-64 object-contain rounded-xl"
                 />
               </div>
               
@@ -159,12 +151,6 @@ const Navbar = () => {
       {/* Mobile Menu Button */}
       <div className="lg:hidden bg-blue-950 py-3 px-4 border-t border-blue-700">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {!login && (
-            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors sm:hidden">
-              Register
-            </button>
-          )}
-          
           <button 
             onClick={toggleMobileMenu}
             className="bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center space-x-2 ml-auto"
@@ -190,22 +176,22 @@ const Navbar = () => {
               {!login ? (
                 <>
                   <button 
-                    onClick={(e) => handleLinkClick(e, '/')}
-                    className="block w-full text-left bg-blue-800 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors text-sm"
-                  >
-                    Student Login
-                  </button>
-                  <button 
                     onClick={(e) => handleLinkClick(e, '/admin_login')}
                     className="block w-full text-left bg-blue-800 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors text-sm"
                   >
                     Admin Login
                   </button>
-                  <button className="block w-full text-left bg-blue-800 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors text-sm">
-                    Contact Support
+                  <button 
+                    onClick={(e) => handleLinkClick(e, '/about')}
+                    className="block w-full text-left bg-blue-800 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors text-sm"
+                  >
+                    About
                   </button>
-                  <button className="block w-full text-left bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium transition-colors text-sm mt-2">
-                    New Registration
+                  <button 
+                    onClick={(e) => handleLinkClick(e, '/contact')}
+                    className="block w-full text-left bg-blue-800 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors text-sm"
+                  >
+                    Contact
                   </button>
                 </>
               ) : (
@@ -221,8 +207,6 @@ const Navbar = () => {
         </div>
       )}
     </div>
-    
-    </>
   );
 };
 

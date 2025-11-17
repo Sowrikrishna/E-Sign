@@ -1,47 +1,50 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 export const AppContext = createContext();
 
-export const AppContextProvider=({children})=>{
-    const [isUser,setIsUser]=useState(false);
-    const [isAdmin,setIsAdmin]=useState(false);
+export const AppContextProvider = ({ children }) => {
+    const [isUser, setIsUser] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     
-    // Add font size state
-    const [fontSize, setFontSize] = useState('base'); // 'sm', 'base', 'lg'
+    // Zoom level state
+    const [zoomLevel, setZoomLevel] = useState(1); // 1 = 100%
 
-    // Font size functions
+    // Zoom level functions
     const increaseFontSize = () => {
-        if (fontSize === 'sm') setFontSize('base');
-        else if (fontSize === 'base') setFontSize('lg');
+        setZoomLevel(prev => Math.min(prev + 0.1, 2)); // Max 200%
     };
 
     const decreaseFontSize = () => {
-        if (fontSize === 'lg') setFontSize('base');
-        else if (fontSize === 'base') setFontSize('sm');
+        setZoomLevel(prev => Math.max(prev - 0.1, 0.5)); // Min 50%
     };
 
     const resetFontSize = () => {
-        setFontSize('base');
+        setZoomLevel(1);
     };
 
-    //in this use all the variables to export to other components
-    const value={
-        isUser,setIsUser,
-        isAdmin,setIsAdmin,
-        fontSize,
+    // Apply zoom level to the body
+    useEffect(() => {
+        document.body.style.transform = `scale(${zoomLevel})`;
+        document.body.style.transformOrigin = 'top left';
+        document.body.style.width = `${100 / zoomLevel}%`;
+        document.body.style.height = `${100 / zoomLevel}%`;
+        document.body.style.overflowX = 'hidden';
+    }, [zoomLevel]);
+
+    const value = {
+        isUser, setIsUser,
+        isAdmin, setIsAdmin,
+        fontSize: zoomLevel, // for backward compatibility, but we are not using it in the Navbar
         increaseFontSize,
         decreaseFontSize,
         resetFontSize
     };
     
     return <AppContext.Provider value={value}>
-        {/* Wrap entire app with font size class */}
-        <div className={fontSize === 'sm' ? 'text-sm' : fontSize === 'base' ? 'text-base' : 'text-lg'}>
-            {children}
-        </div>
+        {children}
     </AppContext.Provider>
 }
 
-export const useAppContext=()=>{
+export const useAppContext = () => {
     return useContext(AppContext);
 }

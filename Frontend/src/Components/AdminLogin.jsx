@@ -130,6 +130,7 @@
 
 import React, { useState, useEffect } from "react";
 import { FaUser, FaLock, FaTimes, FaCheck, FaExclamationTriangle } from "react-icons/fa";
+import { GoPasskeyFill } from "react-icons/go"
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../Context/AppContext";
 
@@ -189,7 +190,7 @@ const AdminLogin = ({ onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 w-full h-full bg-black/60 flex justify-center items-center z-[999] font-sans p-4">
+    <div className="inset-0 w-full h-full bg-black/60 flex justify-center items-center z-[999] font-sans p-4">
       <div className="bg-white rounded-xl w-full max-w-sm mx-auto shadow-2xl z-[1000] relative overflow-hidden border border-gray-200">
         
         {/* Compact Header */}
@@ -260,7 +261,7 @@ const AdminLogin = ({ onClose }) => {
             {/* Password Field - Icon and text in same line */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center">
-                <FaUser className="mr-3 text-[#003366] text-lg -mb-3 " />
+                <GoPasskeyFill className="mr-3 text-[#003366] text-xl -mb-3 " />
                 
               </label>
               <label className="text-sm font-semibold text-gray-700 flex items-center">PASSWORD</label>
